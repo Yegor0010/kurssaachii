@@ -16,6 +16,12 @@ http.createServer(function(req,resp){
             else if (req.url == "/reservations"){
                 emp.getResList(req,resp);
             }
+            else if (req.url == "/clients"){
+                emp.getClientList(req,resp);
+            }
+            else if (req.url == "/concreteproc"){
+                emp.getConcProcList(req,resp);
+            }
             else{
                 var empnoPatt = "[0-9]+";
                 var patt = new RegExp("/employees/" + empnoPatt);
@@ -43,6 +49,45 @@ http.createServer(function(req,resp){
                     emp.add(req,resp,reqBody);
                 });
             }
+            else if(req.url == "/clients"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.addClient(req,resp,reqBody);
+                });
+            }
+            else if(req.url == "/reservations"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.addReservation(req,resp,reqBody);
+                });
+            }
+            else if(req.url == "/procs"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.addProcs(req,resp,reqBody);
+                });
+            }
             else{
                 httpMsg.show404(req,resp);
             }
@@ -61,6 +106,45 @@ http.createServer(function(req,resp){
                     emp.update(req,resp,reqBody);
                 });
             }
+            else if(req.url == "/clients"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.updateClients(req,resp,reqBody);
+                });
+            }
+            else if(req.url == "/procs"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.updateProcs(req,resp,reqBody);
+                });
+            }
+            else if(req.url == "/reservations"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.updateReservations(req,resp,reqBody);
+                });
+            }
             else{
                 httpMsg.show404(req,resp);
             }
@@ -77,6 +161,45 @@ http.createServer(function(req,resp){
                 });
                 req.on("end", function(){
                     emp.delete(req,resp,reqBody);
+                });
+            }
+            else if(req.url == "/clients"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.deleteClients(req,resp,reqBody);
+                });
+            }
+            else if(req.url == "/procs"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.deleteProcs(req,resp,reqBody);
+                });
+            }
+            else if(req.url == "/reservations"){
+                var reqBody = '';
+                req.on("data", function(data){
+                    reqBody += data;
+                    console.log(reqBody);
+                    if(reqBody.length > 1e7){
+                        httpMsg.show413(req, resp);
+                    }
+                });
+                req.on("end", function(){
+                    emp.deleteReservations(req,resp,reqBody);
                 });
             }
             else{
