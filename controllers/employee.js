@@ -313,9 +313,9 @@ exports.updateProcs = function(req, resp, reqBody){
     try{
         if(!reqBody) throw new Error("Input not valid!");
         var data = JSON.parse(reqBody);
-        console.log(data.ID);
+        console.log(data.ReservationID);
         if(data){
-            if(!data.ID) throw new Error("Empty number")
+            if(!data.ReservationID) throw new Error("Empty number")
             var sql = "update Procs set";
             var isDataProvided= false;
             if(data.ReservationID){
@@ -332,7 +332,7 @@ exports.updateProcs = function(req, resp, reqBody){
             }
             sql = sql.slice(0, -1);
 
-            sql += " where ID = " + data.ID;
+            sql += " where ReservationID = " + data.ReservationID;
             
             console.log(sql);
             
