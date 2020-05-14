@@ -1,8 +1,8 @@
 exports.dbConfig = {
-    user: "sa",
-    password: "123",
-    server: "DESKTOP-0GUD300",
-    database:"SPASalonV2",
+    user: "user",
+    password: "123123",
+    server: "DESKTOP-CCGV6TM",
+    database:"hotelExported",
     port: 1433
 }
 

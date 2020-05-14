@@ -1,7 +1,45 @@
 var db = require('../core/db.js');
 var httpMsg = require("../core/httpMessages");
 var util = require("util");
-let name =  "Kiril Bubka"
+
+exports.staffPositions = function(req, res){
+    db.executeSql("select * from StaffPositions", function(data, err){
+        if(err){
+            httpMsg.show500(req, res, err);
+        }
+        else{
+            // httpMsg.sendJson(req,resp,data);
+            res.status(200).json(data);
+        }
+    });
+};
+exports.login = function(req, res, reqBody){
+    try{
+        console.log("exports.login -> reqBody", reqBody)
+        if (reqBody) {
+            var sql = `select * from StaffMembers where position_id=${reqBody.position_id} and staff_member_id=${reqBody.staff_member_id}`;
+            
+            db.executeSql(sql, function(data, err){
+                if(err){
+                    res.status(200).json({error: err});
+                }
+                else {
+                    // httpMsg.sendJson(req,resp,data);
+                    res.status(200).json(data);
+                }
+            });
+            console.log('object2')
+            
+        }
+        else{
+            throw new Error("Input not valid!")
+        }
+    }
+    catch(ex){
+        console.log("exports.login -> ex", ex)
+    }
+};
+
 exports.getList = function(req, resp){
     db.executeSql("select * from Worker", function(data, err){
         if(err){
@@ -10,20 +48,17 @@ exports.getList = function(req, resp){
         else{
             httpMsg.sendJson(req,resp,data);
         }
-        resp.end();
-
     });
 };
 
 exports.getResList = function(req, resp){
-    db.executeSql("select Reservation.ID, Reservation.AgreementDate, Reservation.AgreementTime, Reservation.ClientID, Reservation.Price, Reservation.StatusID, Reservation.SalonID, Procs.WorkerID, Procs.ConcreteProcID, ProcedureType.ConcreteName from Reservation left join Procs on Reservation.ID = Procs.ReservationID left join ProcedureType on Procs.ConcreteProcID = ProcedureType.ID", function(data, err){
+    db.executeSql("", function(data, err){
         if(err){
             httpMsg.show500(req, resp, err);
         }
         else{
             httpMsg.sendJson(req,resp,data);
         }
-        resp.end();
 
     });
 };
@@ -36,7 +71,7 @@ exports.getClientList = function(req, resp){
         else{
             httpMsg.sendJson(req,resp,data);
         }
-        resp.end();
+        
 
     });
 };
@@ -49,7 +84,7 @@ exports.getConcProcList = function(req, resp){
         else{
             httpMsg.sendJson(req,resp,data);
         }
-        resp.end();
+        
 
     });
 };
@@ -62,7 +97,7 @@ exports.get = function(req, resp, empno){
         else{
             httpMsg.sendJson(req,resp,data);
         }
-        resp.end();
+        
 
     });
 };
@@ -86,7 +121,7 @@ exports.add = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -116,7 +151,7 @@ exports.addClient = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -146,7 +181,7 @@ exports.addProcs = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -176,7 +211,7 @@ exports.addReservation = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -240,7 +275,7 @@ exports.update = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -296,7 +331,7 @@ exports.updateClients = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -343,7 +378,7 @@ exports.updateProcs = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -403,7 +438,7 @@ exports.updateReservations = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -438,7 +473,7 @@ exports.delete = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -473,7 +508,7 @@ exports.deleteClients = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -508,7 +543,7 @@ exports.deleteReservations = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
@@ -543,7 +578,7 @@ exports.deleteProcs = function(req, resp, reqBody){
                 else{
                     httpMsg.send200(req,resp);
                 }
-                resp.end();
+                
         
             });
         }
